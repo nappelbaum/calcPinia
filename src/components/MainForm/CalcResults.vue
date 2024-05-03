@@ -3,7 +3,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useParams } from '@/storesPinia/params'
 import toString from '@/services/toString'
 import toNumber from '@/services/toNumber'
-import ModalWindow from './ModalWindow.vue'
+import ModalWindow from '@/components/ModalWindow/ModalWindow.vue'
 import bodyLock from '@/services/bodyLock'
 
 const params = useParams()
@@ -20,9 +20,7 @@ const results = computed(() => [
   { name: 'Общая сумма займа', value: toString(result.value.totalSum) }
 ])
 
-onMounted(() => {
-  bodyLock(showModal)
-})
+onMounted(() => bodyLock(showModal))
 </script>
 
 <template>

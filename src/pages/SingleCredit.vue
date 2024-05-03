@@ -1,22 +1,13 @@
 <script setup>
-import { computed, onMounted, watch } from 'vue'
-import { useRoute } from 'vue-router'
+import { computed } from 'vue'
+
 import { useBanks } from '@/storesPinia/banks'
 import toString from '@/services/toString'
-
-const route = useRoute()
-const id = route.params.id
 
 const banks = useBanks()
 
 const creditLoadError = computed(() => banks.creditLoadError)
 const credit = computed(() => banks.singleCredit)
-
-onMounted(() => {
-  banks.fetchCredit(id)
-})
-
-watch(credit, () => (document.title = `Credit id ${credit.value.id}`), { once: true })
 </script>
 
 <template>

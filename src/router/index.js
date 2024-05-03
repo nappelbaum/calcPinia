@@ -1,31 +1,39 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from '../pages/HomePage.vue'
-import FeaturesPage from '../pages/FeaturesPage.vue'
-import SingleCredit from '../pages/SingleCredit.vue'
+import { useBanks } from '@/storesPinia/banks'
 
 const routes = [
   {
     path: '/',
     name: 'HomePage',
-    component: HomePage,
+    component: () => import('../pages/HomePage.vue'),
     meta: { title: 'Calculator' }
   },
   {
     path: '/features',
     name: 'FeaturesPage',
-    component: FeaturesPage,
+    component: () => import('../pages/FeaturesPage.vue'),
     meta: { title: 'Features' }
   },
   {
     path: '/products/credit/:id',
     name: 'SingleCredit',
-    component: SingleCredit
+    component: () => import('../pages/SingleCredit.vue'),
+    meta: { title: 'Кредит' },
+    beforeEnter: async (to) => {
+      const banks = useBanks()
+      await banks.fetchCredit(to.params.id)
+      document.title = `Кредит ${banks.singleCredit.creditName}`
+    }
   }
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+router.beforeEach((to) => {
+  document.title = to.meta.title
 })
 
 export default router

@@ -1,9 +1,6 @@
 <script setup>
-import MainForm from '@/components/MainForm.vue'
-import OffersList from '@/components/OffersList.vue'
-import { useRoute } from 'vue-router'
-const route = useRoute()
-document.title = route.meta.title
+import MainForm from '@/components/MainForm/MainForm.vue'
+import OffersList from '@/components/OfferList/OffersList.vue'
 </script>
 
 <template>
